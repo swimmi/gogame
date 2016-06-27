@@ -8,6 +8,18 @@ import (
 	"models"
 )
 
+//Login
+func Login(name string) (models.Role, error) {
+
+	c := Connect("role")
+	role := models.Role{}
+	err := c.Find(bson.M{"name": name}).One(&role)
+	if err != nil {
+		fmt.Println(consts.RNE)
+	}
+	return role, err
+}
+
 //Npc
 func GetNpcList() ([]models.Npc, error) {
 	c := Connect("npc")
@@ -40,12 +52,33 @@ func GetNpcByName(name string) (models.Npc, error) {
 }
 
 //RoleItem
-func GetRoleItemList() ([]models.RoleItem, error) {
-	c := Connect("role_item"))
-	items := []models.RoleItem{}
-	err := c.Find(nil).Sort("id").All(&items)
+func GetRoleItemList(role_id int) ([]models.RoleItem, error) {
+	c := Connect("role_item")
+	role_items := []models.RoleItem{}
+	err := c.Find(bson.M{"roleId": role_id}).Sort("id").All(&role_items)
 	if err != nil {
 		fmt.Println(consts.INE)
 	}
-	return items, err
+	return role_items, err
+}
+
+//Item
+func GetItemById(id int) (models.Item, error) {
+	c := Connect("item")
+	item := models.Item{}
+	err := c.Find(bson.M{"id": id}).One(&item)
+	if err != nil {
+		fmt.Println(consts.INE)
+	}
+	return item, err
+}
+
+func GetItemByName(name string) (models.Item, error) {
+	c := Connect("item")
+	item := models.Item{}
+	err := c.Find(bson.M{"name": name}).One(&item)
+	if err != nil {
+		fmt.Println(consts.INE)
+	}
+	return item, err
 }

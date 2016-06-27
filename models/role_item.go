@@ -1,7 +1,8 @@
 package models
 
 type RoleItem struct {
-	RoleId Role
+	Id     int
+	RoleId int
 	ItemId int
 	Count  int
 }
