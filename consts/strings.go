@@ -26,15 +26,17 @@ const (
 	LOGIN_SUCCESS = "登录成功，欢迎你"
 
 	LOGIN_FORMAT      = "格式：登录 <用户名>"
-	SELECT_NPC_FORMAT = "格式：选择npc <ID/名字>"
+	SELECT_NPC_FORMAT = "格式：选择NPC <ID/名字>"
+	PRESENT_FORMAT    = "格式：赠送物品 <NPC> <物品> [数量]"
 
-	NPC_LIST = `<NPC>	ID	名字	性别	年龄`
-	NPC_HEAD = "\n+++\t\t\t以下是NPC信息\t\t\t+++\n\n╬--%s\t\t--╬\n"
-	NPC_ITEM = "╬--< %v >\t%v\t%s\t%s\t%v\t\t--╬\n"
-	NPC_FOOT = "\n+++\t\t\tNPC信息展示完毕\t\t\t+++\n\n"
+	NPC_LIST = `╬--<NPC>	ID	名字	性别	年龄	好感		--╬`
+	NPC_ITEM = `╬--< %v >	%v	%s	%s	%v	%v		--╬
+`
 
-	ROLE_ITEM_LIST = `<物品>	ID	物品ID	数量`
-	ROLE_ITEM_HEAD = "\n+++\t\t\t以下是物品信息\t\t\t+++\n\n╬--%s\t\t--╬\n"
-	ROLE_ITEM      = "╬--< %v >\t%v\t%v\t%v\t\t--╬\n"
-	ROLE_ITEM_FOOT = "\n+++\t\t\t物品信息展示完毕\t\t\t+++\n\n"
+	ROLE_ITEM_LIST = `╬--<物品>	ID	物品	数量		--╬`
+	ROLE_ITEM      = `╬--< %v >	%v	%v	%v		--╬
+`
+	THANKS = "谢谢你的礼物~"
+
+	LOG_FAIL = "日志写入失败"
 )

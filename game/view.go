@@ -20,11 +20,10 @@ func ViewNpc(args []string) int {
 	switch len(args) {
 	case 1:
 		if npcs, err := db.GetNpcList(); err == nil {
-			fmt.Printf(consts.NPC_HEAD, consts.NPC_LIST)
+			fmt.Println(consts.NPC_LIST)
 			for num, npc := range npcs {
-				fmt.Printf(consts.NPC_ITEM, num+1, npc.Id, npc.Name, utils.PsGender(npc.Gender), npc.Age)
+				fmt.Printf(consts.NPC_ITEM, num+1, npc.Id, npc.Name, utils.PsGender(npc.Gender), npc.Age, npc.Favour)
 			}
-			fmt.Printf(consts.NPC_FOOT)
 		}
 	case 2:
 		id, err := strconv.Atoi(args[1])
@@ -48,12 +47,13 @@ func ViewRoleItem(args []string) int {
 
 	switch len(args) {
 	case 1:
-		if role_items, err := db.GetRoleItemList(roleGo.Id); err == nil {
-			fmt.Printf(consts.ROLE_ITEM_HEAD, consts.ROLE_ITEM_LIST)
+		if role_items, err := db.GetRoleItemList(); err == nil {
+			fmt.Println(consts.ROLE_ITEM_LIST)
 			for num, role_item := range role_items {
-				fmt.Printf(consts.ROLE_ITEM, num+1, role_item.Id, role_item.ItemId, role_item.Count)
+				if item, err := db.GetItemById(role_item.Item); err == nil {
+					fmt.Printf(consts.ROLE_ITEM, num+1, role_item.Id, item.Name, role_item.Count)
+				}
 			}
-			fmt.Printf(consts.ROLE_ITEM_FOOT)
 		}
 	case 2:
 		id, err := strconv.Atoi(args[1])

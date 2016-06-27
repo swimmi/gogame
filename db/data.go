@@ -1,6 +1,8 @@
 package db
 
 import (
+	"time"
+
 	"gopkg.in/mgo.v2/bson"
 
 	"consts"
@@ -46,18 +48,26 @@ func GetNpcByName(name string) (models.Npc, error) {
 	npc := models.Npc{}
 	err := c.Find(bson.M{"name": name}).One(&npc)
 	if err != nil {
-		fmt.Println(consts.NNE)
+		fmt.Println("GetNpcByName", consts.NNE)
 	}
 	return npc, err
 }
 
+func AlterNpcFavour(id int, favour int) {
+	c := Connect("npc")
+	err := c.Update(bson.M{"id": id}, bson.M{"$inc": bson.M{"favour": favour}})
+	if err != nil {
+		fmt.Println("AlterNpcFavour", consts.NNE)
+	}
+}
+
 //RoleItem
-func GetRoleItemList(role_id int) ([]models.RoleItem, error) {
+func GetRoleItemList() ([]models.RoleItem, error) {
 	c := Connect("role_item")
 	role_items := []models.RoleItem{}
-	err := c.Find(bson.M{"roleId": role_id}).Sort("id").All(&role_items)
+	err := c.Find(nil).Sort("id").All(&role_items)
 	if err != nil {
-		fmt.Println(consts.INE)
+		fmt.Println("GetRoleItemList", consts.INE)
 	}
 	return role_items, err
 }
@@ -68,7 +78,7 @@ func GetItemById(id int) (models.Item, error) {
 	item := models.Item{}
 	err := c.Find(bson.M{"id": id}).One(&item)
 	if err != nil {
-		fmt.Println(consts.INE)
+		fmt.Println("GetItemById", consts.INE)
 	}
 	return item, err
 }
@@ -78,7 +88,60 @@ func GetItemByName(name string) (models.Item, error) {
 	item := models.Item{}
 	err := c.Find(bson.M{"name": name}).One(&item)
 	if err != nil {
-		fmt.Println(consts.INE)
+		fmt.Println("GetItemByName", consts.INE)
 	}
 	return item, err
+}
+
+func RemoveRoleItem(id int, count int) {
+	c := Connect("role_item")
+	err := c.Update(bson.M{"id": id}, bson.M{"$inc": bson.M{"count": -count}})
+	if err != nil {
+		fmt.Println("RemoveRoleItem", err.Error())
+	}
+}
+
+//RoleItem
+func GetRoleItemById(id int) (models.RoleItem, error) {
+	c := Connect("role_item")
+	role_item := models.RoleItem{}
+	err := c.Find(bson.M{"id": id}).One(&role_item)
+	if err != nil {
+		fmt.Println("GetRoleItemById", consts.INE)
+	}
+	return role_item, err
+}
+
+func GetRoleItemByName(name string) (models.RoleItem, error) {
+	role_item := models.RoleItem{}
+	item, err := GetItemByName(name)
+	if err == nil {
+		c := Connect("role_item")
+		err = c.Find(bson.M{"item": item.Id}).One(&role_item)
+		if err != nil {
+			fmt.Println("GetRoleItemByName", consts.INE)
+		}
+	}
+	return role_item, err
+}
+
+//Present
+func PresentNpcItem(npc models.Npc, role_item models.RoleItem, count int) {
+	item, err := GetItemById(role_item.Item)
+	if err == nil {
+		AlterNpcFavour(npc.Id, item.FavourValue)
+		RemoveRoleItem(role_item.Id, count)
+		npc.ThankPresent(item.FavourValue)
+		log := models.PresentLog{Npc: npc.Id, Item: role_item.Item, Count: count, Timestamp: time.Now()}
+		AddPresentLog(log)
+	}
+}
+
+func AddPresentLog(log models.PresentLog) error {
+	c := Connect("present_log")
+	err := c.Insert(&log)
+	if err != nil {
+		fmt.Println("AddPresentLog", consts.LOG_FAIL)
+	}
+	return err
 }

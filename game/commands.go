@@ -1,9 +1,9 @@
 package game
 
 import (
-	"bufio"
+	/*"bufio"
+	"os"*/
 	"fmt"
-	"os"
 
 	"consts"
 	"db"
@@ -15,19 +15,20 @@ func GetCommandHandlers() map[string]func(args []string) int {
 		"帮助":    Help,
 		"退出":    Quit,
 		"查看玩家":  ViewRole,
-		"查看npc": ViewNpc,
-		"选择npc": SelectNpc,
+		"查看NPC": ViewNpc,
+		"选择NPC": SelectNpc,
 		"查看物品":  ViewRoleItem,
+		"赠送物品":  PresentNpcItem,
 	}
 }
 
 func Login() error {
 	for !IsLogin {
-		fmt.Print(consts.LOGIN)
+		/*fmt.Print(consts.LOGIN)
 		r := bufio.NewReader(os.Stdin)
 		b, _, _ := r.ReadLine()
-		name := string(b)
-		role, err := db.Login(name)
+		name := string(b)*/
+		role, err := db.Login("草未眠")
 		roleGo = &role
 		if err != nil {
 			fmt.Println(consts.LOGIN_FAIL)

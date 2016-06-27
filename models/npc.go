@@ -2,6 +2,8 @@ package models
 
 import (
 	"fmt"
+
+	"consts"
 )
 
 type Npc struct {
@@ -17,4 +19,8 @@ type Npc struct {
 
 func (npc *Npc) ViewInfo() {
 	fmt.Println(npc.Name, npc.Desc)
+}
+
+func (npc *Npc) ThankPresent(favour int) {
+	fmt.Println(npc.Name, consts.THANKS)
 }
