@@ -145,3 +145,24 @@ func Log(log models.Log) error {
 	}
 	return err
 }
+
+//Farm
+func GetFarmUnitList() ([]models.FarmUnit, error) {
+	c := Connect("farm")
+	farm_units := []models.FarmUnit{}
+	err := c.Find(nil).Sort("id").All(&farm_units)
+	if err != nil {
+		fmt.Println("GetFarmUnitList", consts.INE)
+	}
+	return farm_units, err
+}
+
+func GetCropById(id int) (models.Crop, error) {
+	c := Connect("crop")
+	crop := models.Crop{}
+	err := c.Find(bson.M{"id": id}).One(&crop)
+	if err != nil {
+		fmt.Println("GetCropById", consts.INE)
+	}
+	return crop, err
+}

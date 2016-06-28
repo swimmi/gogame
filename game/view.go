@@ -76,3 +76,18 @@ func ViewRoleItem(args []string) int {
 	}
 	return 0
 }
+
+//查看农场
+func ViewFarm(args []string) int {
+	if len(args) == 1 {
+		if farm_units, err := db.GetFarmUnitList(); err == nil {
+			fmt.Println(consts.FARM_UNIT_LIST)
+			for num, farm_unit := range farm_units {
+				if crop, err := db.GetCropById(farm_unit.Crop); err == nil {
+					fmt.Printf(consts.FARM_UNIT, num+1, farm_unit.Id, crop.Name, farm_unit.Day)
+				}
+			}
+		}
+	}
+	return 0
+}

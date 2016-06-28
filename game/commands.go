@@ -20,6 +20,7 @@ func GetCommandHandlers() map[string]func(args []string) int {
 		"选择NPC": SelectNpc,
 		"查看物品":  ViewRoleItem,
 		"赠送物品":  PresentNpcItem,
+		"查看农场":  ViewFarm,
 	}
 }
 
