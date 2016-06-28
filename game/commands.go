@@ -14,6 +14,7 @@ func GetCommandHandlers() map[string]func(args []string) int {
 	return map[string]func([]string) int{
 		"帮助":    Help,
 		"退出":    Quit,
+		"查看":    View,
 		"查看玩家":  ViewRole,
 		"查看NPC": ViewNpc,
 		"选择NPC": SelectNpc,
@@ -34,7 +35,9 @@ func Login() error {
 			fmt.Println(consts.LOGIN_FAIL)
 		} else {
 			IsLogin = true
-			fmt.Println(roleGo.Name, consts.LOGIN_SUCCESS)
+			fmt.Printf(consts.WELCOME, roleGo.Name)
+			SetEnv()
+			Tick()
 		}
 	}
 	return nil

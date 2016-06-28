@@ -132,16 +132,16 @@ func PresentNpcItem(npc models.Npc, role_item models.RoleItem, count int) {
 		AlterNpcFavour(npc.Id, item.FavourValue)
 		RemoveRoleItem(role_item.Id, count)
 		npc.ThankPresent(item.FavourValue)
-		log := models.PresentLog{Npc: npc.Id, Item: role_item.Item, Count: count, Timestamp: time.Now()}
-		AddPresentLog(log)
+		log := models.Log{Type: "present", Npc: npc.Id, Item: role_item.Item, Count: count, Timestamp: time.Now()}
+		Log(log)
 	}
 }
 
-func AddPresentLog(log models.PresentLog) error {
-	c := Connect("present_log")
+func Log(log models.Log) error {
+	c := Connect("log")
 	err := c.Insert(&log)
 	if err != nil {
-		fmt.Println("AddPresentLog", consts.LOG_FAIL)
+		fmt.Println("Log", consts.LOG_FAIL)
 	}
 	return err
 }

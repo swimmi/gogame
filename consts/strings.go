@@ -2,7 +2,6 @@ package consts
 
 const (
 	LOGIN = "登录："
-	CHT   = "命令："     //Command Hint Text
 	CNE   = "命令不存在"   //Command Not Exist
 	RNE   = "角色不存在"   //Role Not Exist
 	NNE   = "NPC不存在"  //NPC Not Exist
@@ -12,11 +11,16 @@ const (
 	HELP = `
 		以下命令可使用：
 	`
+
+	COMMAND = `
+----╬---------------------------------------------------------------╬----
+	╬		%s	%s		╬
+命令：` //Command Hint Text
 	WELCOME = `
-		╬刻╬╬骨╬╬╬━━╬╬一╬╬笑╬╬
-		╬╬╬╬╬╬╬┇ 累 ┇╬╬╬╬╬╬╬
-		╬╬╬╬╬╬╬┇ 了 ┇╬╬╬╬╬╬╬
-		╬铭╬╬心╬╬╬━━╬╬而╬╬过╬╬
+		╬-----------------------------------------------╬
+		╬	  多情自古伤离别，更那堪，冷落清秋节       ╬
+		╬										%s ╬
+		╬-----------------------------------------------╬
 	`
 	ROLE_INFO = `
 		姓名: %s,
@@ -29,12 +33,12 @@ const (
 	SELECT_NPC_FORMAT = "格式：选择NPC <ID/名字>"
 	PRESENT_FORMAT    = "格式：赠送物品 <NPC> <物品> [数量]"
 
-	NPC_LIST = `╬--<NPC>	ID	名字	性别	年龄	好感		--╬`
-	NPC_ITEM = `╬--< %v >	%v	%s	%s	%v	%v		--╬
+	NPC_LIST = `	╬--0	ID	名字	性别	年龄	好感	--╬`
+	NPC_ITEM = `	╬--%v	%v	%s	%s	%v	%v	--╬
 `
 
-	ROLE_ITEM_LIST = `╬--<物品>	ID	物品	数量		--╬`
-	ROLE_ITEM      = `╬--< %v >	%v	%v	%v		--╬
+	ROLE_ITEM_LIST = `	╬--0	ID	物品	数量	--╬`
+	ROLE_ITEM      = `	╬--%v	%v	%v	%v	--╬
 `
 	THANKS = "谢谢你的礼物~"
 

@@ -9,6 +9,11 @@ import (
 	"utils"
 )
 
+//查看
+func View(args []string) int {
+	return 0
+}
+
 //查看角色
 func ViewRole(args []string) int {
 	fmt.Println(consts.ROLE_INFO)
