@@ -1,6 +1,7 @@
 package db
 
 import (
+	"errors"
 	"time"
 
 	"gopkg.in/mgo.v2/bson"
@@ -144,6 +145,64 @@ func Log(log models.Log) error {
 		fmt.Println("Log", consts.LOG_FAIL)
 	}
 	return err
+}
+
+//Place
+func GetPlaceById(id int) (models.Place, error) {
+	c := Connect("place")
+	place := models.Place{}
+	err := c.Find(bson.M{"id": id}).One(&place)
+	if err != nil {
+		fmt.Println("GetPlaceById", consts.PNE)
+	}
+	return place, err
+}
+func GetPlaceByName(name string) (models.Place, error) {
+	c := Connect("place")
+	place := models.Place{}
+	err := c.Find(bson.M{"name": name}).One(&place)
+	if err != nil {
+		fmt.Println("GetPlaceById", consts.PNE)
+	}
+	return place, err
+}
+
+//Site
+func GetSiteById(place models.Place, id int) (models.Site, error) {
+	for _, site := range place.Sites {
+		if site.Id == id {
+			return site, nil
+		}
+	}
+	return models.Site{}, errors.New(consts.PNE)
+}
+func GetSiteByName(place models.Place, name string) (models.Site, error) {
+	for _, site := range place.Sites {
+		if site.Name == name {
+			return site, nil
+		}
+	}
+	return models.Site{}, errors.New(consts.PNE)
+}
+
+//Goods
+func GetGoodsById(id int) (models.Goods, error) {
+	c := Connect("goods")
+	goods := models.Goods{}
+	err := c.Find(bson.M{"id": id}).One(&goods)
+	if err != nil {
+		fmt.Println("GetGoodsById", consts.GNE)
+	}
+	return goods, err
+}
+func GetGoodsByName(name string) (models.Goods, error) {
+	c := Connect("goods")
+	goods := models.Goods{}
+	err := c.Find(bson.M{"name": name}).One(&goods)
+	if err != nil {
+		fmt.Println("GetGoodsByName", consts.GNE)
+	}
+	return goods, err
 }
 
 //Farm

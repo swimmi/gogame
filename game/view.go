@@ -91,3 +91,35 @@ func ViewFarm(args []string) int {
 	}
 	return 0
 }
+
+//查看地点
+func ViewSite(args []string) int {
+	if len(args) == 1 {
+		fmt.Println(consts.SITE_LIST)
+		for num, site := range placeGo.Sites {
+			fmt.Printf(consts.SITE_ITEM, num+1, site.Id, site.Name)
+		}
+	}
+	return 0
+}
+
+//查看商品
+func ViewGoods(args []string) int {
+	if len(args) == 1 {
+		if siteGo == nil {
+			fmt.Printf(consts.GOTO_SITE, placeGo.Name)
+			return 0
+		} else if len(siteGo.Goods) == 0 {
+			fmt.Println(consts.NO_GOODS)
+			return 0
+		}
+
+		fmt.Println(consts.GOODS_LIST)
+		for num, site_goods := range siteGo.Goods {
+			if goods, err := db.GetGoodsById(site_goods.Goods); err == nil {
+				fmt.Printf(consts.GOODS_ITEM, num+1, site_goods.Goods, goods.Name, site_goods.Price, site_goods.Count)
+			}
+		}
+	}
+	return 0
+}

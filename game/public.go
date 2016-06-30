@@ -11,6 +11,8 @@ import (
 var IsLogin = false
 var roleGo *models.Role
 var npcGo *models.Npc
+var placeGo *models.Place
+var siteGo *models.Site
 
 var TimeNow = ""
 var WeatherNow = ""

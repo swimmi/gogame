@@ -21,6 +21,9 @@ func GetCommandHandlers() map[string]func(args []string) int {
 		"查看物品":  ViewRoleItem,
 		"赠送物品":  PresentNpcItem,
 		"查看农场":  ViewFarm,
+		"查看地点":  ViewSite,
+		"查看商品":  ViewGoods,
+		"前往地点":  GotoSite,
 	}
 }
 
@@ -32,6 +35,8 @@ func Login() error {
 		name := string(b)*/
 		role, err := db.Login("草未眠")
 		roleGo = &role
+		place, err := db.GetPlaceById(1)
+		placeGo = &place
 		if err != nil {
 			fmt.Println(consts.LOGIN_FAIL)
 		} else {
