@@ -1,5 +1,9 @@
 package utils
 
+import (
+	"time"
+)
+
 func PsGender(gender int) string {
 	genders := []string{"女", "男"}
 	return genders[gender]
@@ -14,4 +18,8 @@ func PsSmNum(number int) string {
 		return string([]rune(str)[number/10]) + "十" + string([]rune(str)[number%10])
 	}
 	return string(number)
+}
+
+func PsTime(time time.Time) string {
+
 }

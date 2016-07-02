@@ -17,7 +17,7 @@ func main() {
 		r := bufio.NewReader(os.Stdin)
 		handlers := game.GetCommandHandlers()
 		for { // 循环读取用户输入
-			fmt.Printf(consts.COMMAND, game.TimeNow, game.WeatherNow)
+			fmt.Printf(consts.COMMAND, game.TimeNow, game.WeatherNow, game.PlaceNow, game.SiteNow)
 			b, _, _ := r.ReadLine()
 			line := string(b)
 

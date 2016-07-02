@@ -16,6 +16,8 @@ var siteGo *models.Site
 
 var TimeNow = ""
 var WeatherNow = ""
+var PlaceNow = ""
+var SiteNow = ""
 
 var WEATHER = []string{"天晴", "阴天", "雨天"}
 
@@ -41,6 +43,6 @@ func SetEnv() {
 		ap = "下午"
 	}
 	minute := now.Minute()
-	TimeNow = fmt.Sprintf("第%s年 %s月%s日 %s%v时%v分", utils.PsSmNum(year), utils.PsSmNum(month), utils.PsSmNum(day), ap, hour, minute)
+	TimeNow = fmt.Sprintf("第%s年%s月%s日 %s%v时%v分", utils.PsSmNum(year), utils.PsSmNum(month), utils.PsSmNum(day), ap, hour, minute)
 	WeatherNow = WEATHER[0]
 }

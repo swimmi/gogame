@@ -20,6 +20,7 @@ func GotoSite(args []string) int {
 		} else {
 			if site, err := db.GetSiteById(*placeGo, id); err == nil {
 				siteGo = &site
+				SiteNow = siteGo.Name
 				site.ViewInfo()
 			}
 		}

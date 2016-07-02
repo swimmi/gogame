@@ -37,6 +37,8 @@ func Login() error {
 		roleGo = &role
 		place, err := db.GetPlaceById(1)
 		placeGo = &place
+		PlaceNow = placeGo.Name
+		SiteNow = placeGo.Sites[0].Name
 		if err != nil {
 			fmt.Println(consts.LOGIN_FAIL)
 		} else {
